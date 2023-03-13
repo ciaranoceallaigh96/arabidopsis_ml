@@ -27,19 +27,8 @@ results_table <- melt(results_table)
 #value is the results values e.g r2
 #Var1 is the model names
 
-model_r2 <- lm(value~Var1, data=results_table) #linear model
-rob_model_r2 <- lmrob(value~Var1, data=results_table, setting="KS2014") # robust M estimators #see ref 13 from paper
-dunnett_result <- summary(glht(model_r2,linfct=mcp(Var1="Dunnett"))) #parametric Dunnett Test
-print("DUNNETT TEST")
-dunnett_result # #print results of dunnett test
-dunnett <- fortify(dunnett_result)
 
-print("M-robust DUNETT")
-rob_dunnett_result <- summary(glht(rob_model_r2,linfct=mcp(Var1="Dunnett"))) #M-robust Dunnett 
-rob_dunnett_result
-rob_dunnett <- fortify(rob_dunnett_result)
 
-print("MLT-DUNNETT")
 yvar <- numeric_var("value", support=quantile(results_table$value,prob=c(.01,.99))) #MLT
 bstorder <- 5 #order of Bernstein polynomical # recommednded between 5 and 10
 yb <- Bernstein_basis(yvar,ui="increasing",order=bstorder) # Bernstein polynominal
@@ -49,9 +38,6 @@ K <- diag(length(coef(m_mlt))) # contrast matrix
 rownames(K) <- names(coef(m_mlt))
 matr <- bstorder+1
 K <- K[-(1:matr),] #for order 5 Bernstein
-C <- glht(m_mlt, linfct= K) # MLT-Dunnett test
-summary(C) # print results of MLT-Dunnett
-CMLT <- fortify(summary(C))
 
 print("SMALL SAMPLE MLT-DUNNETT")
 tC <- glht(m_mlt, linfct= K, df=model_r2$.df.residual) # MLT for small sample size (t-distribution)
@@ -59,5 +45,4 @@ summary(tC)
 tCMLT <- fortify(summary(tC))
 
 num_models <- nrow(K)-1
-pr2 <- cbind(dunnett[,c(1,num_models)],rob_dunnett[,num_models],CMLT[,num_models], tCMLT[,num_models])
-pr2
+tCMLT[,num_models]
