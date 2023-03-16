@@ -57,8 +57,6 @@ def load_data(data, set_size, organism='arabidopsis', binary=False):
         else:
             print("organism: %s" % organism)
             x = dataset[: , 6:(set_size+6)].astype(np.int)/2
-            #snp_effects = np.loadtxt("arabadopsis/FT10cv_new_10k/top/FT10_gblup_snp_FX_train_only_grm_cv_1.snp.blp", dtype='str') #from gcta gblup
-            #x = x * snp_effects[:,2].astype(np.float)
         phen_set = set(dataset[: , 5 ])
         s = {'2', '1'}
         if phen_set == s :
