@@ -101,6 +101,9 @@ def coeff_determination(y_true, y_pred):
         SS_tot = K.sum(K.square( y_true - K.mean(y_true)))
         return (1-SS_res/SS_tot)
 
+def pearson_corr(y_true, y_pred):
+	corr = np.corrcoef(y_true.reshape(-1), y_pred.reshape(-1))[0,1]
+	return corr
 
 def load_data(data):
         dataset = np.loadtxt(data, skiprows=1, dtype='str')
@@ -228,7 +231,7 @@ scaler = preprocessing.StandardScaler().fit(y_train)
 y_train = scaler.transform(y_train)
 
 n_snps = x_train.shape[1]
-metric_in_use = sklearn.metrics.r2_score if binary == 'False' else sklearn.metrics.roc_auc_score
+metric_in_use = pearson_corr if binary == 'False' else sklearn.metrics.roc_auc_score
 #################################################SVM####SVM#####SVM####################################################################
 def ncv_results(analysis, ncv_object):
         print("Best Params of %s is %s " % (analysis, ncv_object.best_params))
