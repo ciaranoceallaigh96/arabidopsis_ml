@@ -271,7 +271,10 @@ for i in range(1,5):
 
 svm_random_grid = {1:svm_param_grid_1, 2:svm_param_grid_2, 3:svm_param_grid_3, 4:svm_param_grid_4}
 svm_random_grid2 = {1:svm_param_grid2_1, 2:svm_param_grid2_2, 3:svm_param_grid2_3, 4:svm_param_grid2_4}
-
+svm_goal_dict = {}
+svm_time_dict = {}
+rbg_goal_dict = {}
+rbg_time_dict = {}
 for i in range(1,5):
         globals()["svm_goal_dict"+str(i)], globals()["svm_time_dict"+str(i)] = make_goal_dict(globals()["svm_param_grid2_"+str(i)])
         svm_goal_dict[i] = globals()["svm_goal_dict"+str(i)]
@@ -306,7 +309,8 @@ for i in range(1,5):
 alpha_dict = {1:alpha_dict_1, 2:alpha_dict_2, 3:alpha_dict_3, 4:alpha_dict_4}
 ridge_alpha_dict = {1:ridge_alpha_dict_1, 2:ridge_alpha_dict_2, 3:ridge_alpha_dict_3, 4:ridge_alpha_dict_4}
 
-
+lass_goal_dict = {}
+lass_time_dict = {}
 for i in range(1,5):
         globals()["lass_goal_dict"+str(i)], globals()["lass_time_dict"+str(i)] = make_goal_dict(globals()["alpha_dict"+str(i)])
         lass_goal_dict[i] = globals()["lass_goal_dict"+str(i)]
@@ -321,6 +325,8 @@ if binary == 'False' :
 	ncv_results('LASS', LASS_NCV)
 
 print("Performing Ridge")
+lass_goal_dict = {}
+lass_time_dict = {}
 for i in range(1,5):
         globals()["lass_goal_dict"+str(i)], globals()["lass_time_dict"+str(i)] = make_goal_dict(globals()["ridge_alpha_dict"+str(i)])
         lass_goal_dict[i] = globals()["lass_goal_dict"+str(i)]
@@ -351,6 +357,8 @@ for i in range(1,5):
 	print(globals()["random_grid_"+str(i)])
 
 random_grid = {1:random_grid_1, 2:random_grid_2, 3:random_grid_3, 4:random_grid_4}
+rf_goal_dict = {}
+rf_time_dict = {}
 for i in range(1,5):
         globals()["rf_goal_dict"+str(i)], globals()["rf_time_dict"+str(i)] = make_goal_dict(globals()["random_grid"+str(i)])
         rf_goal_dict[i] = globals()["rf_goal_dict"+str(i)]
@@ -376,6 +384,8 @@ for i in range(1,5):
 	print(globals()["param_grid_"+str(i)])
 
 param_grid = {1:param_grid_1, 2:param_grid_2, 3:param_grid_3, 4:param_grid_4}
+nn_goal_dict = {}
+nn_time_dict = {}
 for i in range(1,5):
         globals()["nn_goal_dict"+str(i)], globals()["nn_time_dict"+str(i)] = make_goal_dict(globals()["param_grid"+str(i)])
         nn_goal_dict[i] = globals()["nn_goal_dict"+str(i)]
@@ -457,6 +467,8 @@ for i in range(1,5):
 	print(globals()["cnn_param_grid_"+str(i)])
 
 param_grid = {1:cnn_param_grid_1, 2:cnn_param_grid_2, 3:cnn_param_grid_3, 4:cnn_param_grid_4}
+cnn_goal_dict = {}
+cnn_time_dict = {}
 for i in range(1,5):
         globals()["cnn_goal_dict"+str(i)], globals()["cnn_time_dict"+str(i)] = make_goal_dict(globals()["cnn_param_grid"+str(i)])
         cnn_goal_dict[i] = globals()["cnn_goal_dict"+str(i)]
